@@ -13,7 +13,7 @@ function modelEQ
     % ------ Initialize constant parameters ------ %
     global aLA dA ...
             sR dR aIR bIR ...
-            aCI bCI aHI bHI lC gC KC bIC lH gH KH bIH lR dI ...
+            aCI bCI aHI bHI lC gC KC aIC bIC lH gH KH bIC bIH lR dI ...
             aHC bHC dC ...
             aAH bAH aRA bRA aIRA bIRA dH ...
             dL aCL bCL ... %33 parameters
@@ -34,29 +34,30 @@ function modelEQ
     lC = 0.005; %11
     gC = 2.079; %12
     KC = .2*2991; %13
-    bIC = .178; %14
-    lH = 0.000005999988; %15
-    gH = 1.512; %16
-    KH = .2*2112; %17
-    bIH = 0.178; %18
-    lR = .00000333; %19
-    dI = 166.355; %20
+    aIC = 2; %14
+    bIC = .178; %15
+    lH = 0.000005999988; %16
+    gH = 1.512; %17
+    KH = .2*2112; %18
+    aIH = 2; %19
+    bIH = 0.178; %20
+    lR = .00000333; %21
+    dI = 166.355; %22
+    aHC = 1; %23
+    bHC = 35; %24 
+    dC = 0.5853658537; %25
     
-    aHC = 1; %21
-    bHC = 35; %22 
-    dC = 0.5853658537; %23
-    
-    aAH = 0.0000261; %24
-    bAH = 4; %25
-    aRA = 0.4; %26
-    bRA = 20; %27
-    aIRA = 2; %28
-    bIRA = 0.356; %29
-    dH = 0.3333; %30
+    aAH = 0.0000261; %26
+    bAH = 4; %27
+    aRA = 0.4; %28
+    bRA = 20; %29
+    aIRA = 2; %30
+    bIRA = 0.356; %31
+    dH = 0.3333; %32
 
-    dL = 1/200; %31
-    aCL = 10; %32
-    bCL = 200; %33
+    dL = 1/200; %33
+    aCL = 10; %34
+    bCL = 200; %35
 
     % Initial values for variables 
     A0 = 8; % Alloantigen
@@ -87,9 +88,13 @@ function modelEQ
     nexttile
     plot(Tf, LF, 'Color', L_color, 'LineWidth',3)
     xlim([0 endTime])
+    xticks(0: 10 : 30)
     xlabel('Time (Days)')
-    ylabel('Liver hepatocytes')
+    ylabel('L (cells/\mu L)')
     title('Liver hepatocytes (L) over time')
+    ax = gca;
+    ax.XAxis.FontSize = 10;
+    ax.YAxis.FontSize = 10;
 
     % Top middle plot
     nexttile
@@ -97,40 +102,50 @@ function modelEQ
     title('Cell Populations')
     xlim([0 endTime]) 
     xlabel('Time (Days)')
-    ylabel('APCs')
+    ylabel('A (cells/\mu L)')
     title('APCs (A) over time')
+    ax.XAxis.FontSize = 10;
+    ax.YAxis.FontSize = 10;
 
     % Top right plot
     nexttile
     plot(Tf,TcF, 'Color', Tc_color, 'LineWidth', 3)
     xlim([0 endTime])
     xlabel('Time (Days)')
-    ylabel('Cytotoxic T cells')
-    title('Cytotoxic T cells (Tc) over time')
+    ylabel('T_{C} (cells/\mu L)')
+    title('Cytotoxic T cells (T_{C}) over time')
+    ax.XAxis.FontSize = 10;
+    ax.YAxis.FontSize = 10;
 
     % Bottom left plot
     nexttile
     plot(Tf,ThF, 'Color', Th_color,'LineWidth',3 )
     xlim([0 endTime])
     xlabel('Time (Days)')
-    ylabel('Helper T cells')
-    title('Helper T cells (Th) over time')
+    ylabel('T_{H} (cells/\mu L)')
+    title('Helper T cells (T_{H}) over time')
+    ax.XAxis.FontSize = 10;
+    ax.YAxis.FontSize = 10;
 
     % Bottom middle plot
     nexttile
     plot(Tf,TrF,'Color', Tr_color, 'LineWidth',3)
     xlim([0 endTime])
     xlabel('Time (Days)')
-    ylabel('Regulatory T cells')
-    title('Regulatory T cells (Tregs) over time')
+    ylabel('T_{R} (cells/\mu L)')
+    title('Regulatory T cells (T_{R}) over time')
+    ax.XAxis.FontSize = 10;
+    ax.YAxis.FontSize = 10;
 
     % Bottom right plot
     nexttile
     plot(Tf,IF,'Color', I_color,'LineWidth',3)
     xlim([0 endTime])
     xlabel('Time (Days)')
-    ylabel('IL-2')
+    ylabel('I (ng/\mu L)')
     title('IL-2 (I) over time')
+    ax.XAxis.FontSize = 10;
+    ax.YAxis.FontSize = 10;
    
 
     function dy = Forward(~,y)
@@ -153,9 +168,9 @@ function modelEQ
     nPath = aCI*Tc/(bCI +Tc);
     oPath = aHI*Th/(bHI + Th);
     pPath = gC*Tc*(1 - Tc/KC);
-    qPath = I/(bIC + I);
+    qPath = aIC*I/(bIC + I);
     sPath = gH*Th*(1 - Th/KH);
-    rPath = I/(bIH + I);
+    rPath = aIH*I/(bIH + I);
     wPath = dI*I;
     lPath = aHC*Th/(bHC + Th);
     tPath = dC*Tc;
