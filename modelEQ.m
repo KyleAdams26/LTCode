@@ -19,33 +19,33 @@ function modelEQ
             dL aCL bCL ... %33 parameters
 
     % ------ Initialize parameters  ------ %
-    aLA = 1; %1
-    dA = 0.083333; %2
+    aLA = 0.000000001; %1 %lambda_L = 1
+    dA = 0.0833; %2
 
     sR = 0.107; %3
     dR = 0.0658; %4
     aIR = 0.625; %5
-    bIR = 0.00833333; %6
+    bIR = 0.00833; %6
     
     aCI = 0.36; %7
-    bCI = 350; %8
+    bCI = 352; %8
     aHI = 70.7; %9
-    bHI = 100; %10
-    lC = 0.005; %11
-    gC = 2.079; %12
-    KC = .2*2991; %13
+    bHI = 99.7; %10
+    lC = 0.001; %11
+    gC = 2.08; %12
+    KC = 598; %13
     aIC = 2; %14
     bIC = .178; %15
-    lH = 0.000005999988; %16
-    gH = 1.512; %17
-    KH = .2*2112; %18
+    lH = 0.0000063; %16
+    gH = 1.51; %17
+    KH = 422; %18
     aIH = 2; %19
     bIH = 0.178; %20
-    lR = .00000333; %21
-    dI = 166.355; %22
+    lR = .000000667; %21
+    dI = 166; %22
     aHC = 1; %23
     bHC = 35; %24 
-    dC = 0.5853658537; %25
+    dC = 0.585; %25
     
     aAH = 0.0000261; %26
     bAH = 4; %27
@@ -53,19 +53,19 @@ function modelEQ
     bRA = 20; %29
     aIRA = 2; %30
     bIRA = 0.356; %31
-    dH = 0.3333; %32
+    dH = 0.333; %32
 
-    dL = 1/200; %33
+    dL = 0.005; %33
     aCL = 10; %34
     bCL = 200; %35
 
     % Initial values for variables 
     A0 = 8; % Alloantigen
-    Tr0 = 1.307; % Treg cells
-    I0 = 0.00565; % IL-2
+    Tr0 = 1.31; % Treg cells
+    I0 = 0.0113; % IL-2
     Tc0 = 100; % Tc cells  
     Th0 = 70; % Helper T cells
-    L0 = 2*(10^9); % Liver cells
+    L0 = 2*(10^11); % Liver cells
 
 
     % The integration settings defined by options
