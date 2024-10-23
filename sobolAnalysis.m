@@ -3,7 +3,7 @@ arguments
     Y % estimated output value at the samples
     k % dimension of input parameters
     N % number of base samples
-    numResamples = 100000;
+    numResamples = 3;
     confLevel = 0.95;
 end
 
