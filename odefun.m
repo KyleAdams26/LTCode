@@ -23,45 +23,46 @@ function dcdt = odefun(~, c, p)
     %     # x : 33 parameter values
 
     %     #   prepare parameter values
-    aLA = p.aLA; %1
-    bLA = p.bLA; %2
-    dA = p.dA; %3
+    lL = p.lL; %1
+    dA = p.dA; %2
 
-    sR = p.sR; %4
-    dR = p.dR; %5
-    aIR = p.aIR; %6
-    bIR = p.bIR; %7
+    sR = p.sR; %3
+    dR = p.dR; %4
+    aIR = p.aIR; %5
+    bIR = p.bIR; %6
     
-    aCI = p.aCI; %8
-    bCI = p.bCI; %9
-    aHI = p.aHI; %10
-    bHI = p.bHI; %11
-    lC = p.lC; %12
-    gC = p.gC; %13
-    KC = p.KC; %14
+    aCI = p.aCI; %7
+    bCI = p.bCI; %8
+    aHI = p.aHI; %9
+    bHI = p.bHI; %10
+    lC = p.lC; %11
+    gC = p.gC; %12
+    KC = p.KC; %13
+    aIC = p.aIC %14
     bIC = p.bIC; %15
     lH = p.lH; %16
     gH = p.gH; %17
     KH = p.KH; %18
-    bIH = p.bIH; %19
-    lR = p.lR; %20
-    dI = p.dI; %21
+    aIH = p.aIH; %19
+    bIH = p.bIH; %20
+    lR = p.lR; %21
+    dI = p.dI; %22
     
-    aHC = p.aHC; %22
-    bHC = p.bHC; %23
-    dC = p.dC; %24
+    aHC = p.aHC; %23
+    bHC = p.bHC; %24
+    dC = p.dC; %25
     
-    aAH = p.aAH; %25
-    bAH = p.bAH; %26
-    aRA = p.aRA; %27
-    bRA = p.bRA; %28
-    aIRA = p.aIRA; %29
-    bIRA = p.bIRA; %30
-    dH = p.dH; %31
+    aAH = p.aAH; %26
+    bAH = p.bAH; %27
+    aRA = p.aRA; %28
+    bRA = p.bRA; %29
+    aIRA = p.aIRA; %30
+    bIRA = p.bIRA; %31
+    dH = p.dH; %32
 
-    dL = p.dL; %32
-    aCL = p.aCL; %33
-    bCL = p.bCL; %34
+    dL = p.dL; %33
+    aCL = p.aCL; %34
+    bCL = p.bCL; %35
 
 
 
@@ -69,7 +70,6 @@ function dcdt = odefun(~, c, p)
         %% -- The rate change of the 6 populations (Dynamics of the system) -- %%
         % Paths for the dynamics %
    
-    bPath = aLA*L/(bLA + L);
     iPath = dA*A;
     vPath = sR;
     zPath = dR*Tr;
@@ -77,9 +77,9 @@ function dcdt = odefun(~, c, p)
     nPath = aCI*Tc/(bCI +Tc);
     oPath = aHI*Th/(bHI + Th);
     pPath = gC*Tc*(1 - Tc/KC);
-    qPath = I/(bIC + I);
+    qPath = aIC*I/(bIC + I);
     sPath = gH*Th*(1 - Th/KH);
-    rPath = I/(bIH + I);
+    rPath = aIH*I/(bIH + I);
     wPath = dI*I;
     lPath = aHC*Th/(bHC + Th);
     tPath = dC*Tc;
@@ -91,12 +91,12 @@ function dcdt = odefun(~, c, p)
 
 
     % Dynamics 
-    dy(1)  = bPath - iPath ;
-    dy(2)  = vPath - zPath*uPath;
+    dy(1)  = lL*(dL)*L*(1+ePath) - iPath ; %dAdt
+    dy(2)  = vPath - zPath*uPath; %dTrdt
     dy(3)  = nPath + oPath -lC*pPath*qPath -lH*sPath*rPath - lR*zPath*uPath - wPath;
-    dy(4)  = lPath + pPath*qPath - tPath;
+    dy(4)  = lPath + pPath*qPath - tPath; %dTcdt
     dy(5)  = gPath*(1 - jPath*xPath) + sPath*rPath - yPath;
-    dy(6) = -dL*L*ePath;
+    dy(6) = -dL*L*ePath; %dLdt
         
 
 

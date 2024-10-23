@@ -20,7 +20,7 @@ k = length(paramObj.name);
 sgenerator = sobolset(k * 2);
 samples = sgenerator(1:N, :);
 
-=
+
 
 samples = mat2cell(samples, N, [k, k]);
 samples = cell2mat(samples');

@@ -11,15 +11,15 @@ function modelEQ
 
     % =================================================================== %
     % ------ Initialize constant parameters ------ %
-    global aLA dA ...
+    global lL dA ...
             sR dR aIR bIR ...
             aCI bCI aHI bHI lC gC KC aIC bIC lH gH KH bIC bIH lR dI ...
             aHC bHC dC ...
             aAH bAH aRA bRA aIRA bIRA dH ...
-            dL aCL bCL ... %33 parameters
+            dL aCL bCL ... %3 parameters
 
     % ------ Initialize parameters  ------ %
-    aLA = 0.000000001; %1 %lambda_L = 1
+    lL = 0.000000001; %1
     dA = 0.0833; %2
 
     sR = 0.107; %3
@@ -182,7 +182,7 @@ function modelEQ
 
 
     % Dynamics 
-    dy(1)  = aLA*(dL)*L*(1+ePath) - iPath ; %dAdt
+    dy(1)  = lL*(dL)*L*(1+ePath) - iPath ; %dAdt
     dy(2)  = vPath - zPath*uPath; %dTrdt
     dy(3)  = nPath + oPath -lC*pPath*qPath -lH*sPath*rPath - lR*zPath*uPath - wPath;
     dy(4)  = lPath + pPath*qPath - tPath; %dTcdt

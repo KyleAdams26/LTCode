@@ -14,7 +14,8 @@ parameters = parameters();
 
 % Sampling for the desired parameters
 
-parsObj.name = ["aLA", "dA", ...
+
+parsObj.name = ["lL", "dA", ...
                 "sR", "dR", "aIR", "bIR", ...
                 "aCI", "bCI", "aHI", "bHI", "lC", "gC", "KC", "aIC", "bIC", "lH", "gH", "KH", "aIH", "bIH", "lR", "dI" ...
                 "aHC", "bHC", "dC", ...
@@ -38,48 +39,48 @@ parsObj.dist = {'Uniform', 'Uniform' , 'Uniform',...
 nParameters = length(parsObj.name);
 
 parsObj.parameters = {
-    {'lower', 0.5,      'upper', 1.5},... 1%aLA
-    {'lower', 0.0416665,   'upper', 0.1249995},... 2%dA;
-    {'lower', 0.025,     'upper', 0.075},... 3%sR
-    {'lower', 0.03290,       'upper', 0.0987},... 4%dR
-    {'lower', 0.304,       'upper', 0.912},...    5%aIR
-    {'lower', 0.004166665,      'upper', 0.012499995},... 6%bIR
-    {'lower', 0.18,     'upper', 0.54},... 7%aCI
-    {'lower', 175,   'upper', 525},... 8%bCI
-    {'lower', 35.35,       'upper', 106.5},... 9%aHI
-    {'lower', 50,       'upper', 150},... 10%bHI
-    {'lower', 0.0025,   'upper', 0.0075},... 11%IC
-    {'lower', 1.0395,     'upper', 3.1185},... 12%gC
-    {'lower', 299.1,       'upper', 897.3},... 13%KC
-    {'lower', 1,       'upper', 3},... %aIC
-    {'lower', 0.089,     'upper', 0.267},... 14%bIC
-    {'lower', 0.000002999994,   'upper', 0.000008999982},... 15%IH
-    {'lower', 0.756,     'upper', 2.268},... 16%gH
-    {'lower', 211.2,       'upper', 633.6},... 17%KH
-    {'lower', 1,       'upper', 3},... 18%aIH
-    {'lower', 0.089,       'upper', .267},...    18%bIH
-    {'lower', 0.000001666666,      'upper', 0.000004999998},... 19%IR
-    {'lower', 83.1775,        'upper', 249.5325},... %20dI
-    {'lower', 0.5,     'upper', 1.5},... %21aHC
-    {'lower', 176,       'upper', 528},...    %22bHC
-    {'lower', 0.2926829269,       'upper', 0.8780487806},...%23dC
-    {'lower', 0.00001305,     'upper', 0.00003915},...%24aAH
-    {'lower', 2,     'upper', 6},... %25bAH   
-    {'lower', 0.2,     'upper', 0.6},...%26aRA
-    {'lower', 10,     'upper', 30},... %27bRA
-    {'lower', 1,       'upper', 3},... %28aIRA   
-    {'lower', 178,      'upper', 534},... %29bIRA
-    {'lower', 0.16665,   'upper', 0.49995},... %30dH
-    {'lower', 0.025,      'upper', 0.075},... %31dL
-    {'lower', 5,     'upper', 15},... %32aCL
-    {'lower', 100,       'upper', 300}};  %33bCL
+    {'lower', 0.5,      'upper', 1.5},... %1lL
+    {'lower', 0.0416665,   'upper', 0.1249995},... %2dA;
+    {'lower', 0.025,     'upper', 0.075},... %3sR
+    {'lower', 0.03290,       'upper', 0.0987},... %4dR
+    {'lower', 0.304,       'upper', 0.912},...    %5aIR
+    {'lower', 0.004166665,      'upper', 0.012499995},... %6bIR
+    {'lower', 0.18,     'upper', 0.54},... %7aCI
+    {'lower', 175,   'upper', 525},... %8bCI
+    {'lower', 35.35,       'upper', 106.5},... %9aHI
+    {'lower', 50,       'upper', 150},... %10bHI
+    {'lower', 0.0025,   'upper', 0.0075},... %11lC
+    {'lower', 1.0395,     'upper', 3.1185},... %12gC
+    {'lower', 299.1,       'upper', 897.3},... %13KC
+    {'lower', 1,       'upper', 3},... %14aIC
+    {'lower', 0.089,     'upper', 0.267},... %15bIC
+    {'lower', 0.000002999994,   'upper', 0.000008999982},... %16lH
+    {'lower', 0.756,     'upper', 2.268},... %17gH
+    {'lower', 211.2,       'upper', 633.6},... %18KH
+    {'lower', 1,       'upper', 3},... %19aIH
+    {'lower', 0.089,       'upper', .267},...    %20bIH
+    {'lower', 0.000001666666,      'upper', 0.000004999998},... %21IR
+    {'lower', 83.1775,        'upper', 249.5325},... %22dI
+    {'lower', 0.5,     'upper', 1.5},... %23aHC
+    {'lower', 176,       'upper', 528},...    %24bHC
+    {'lower', 0.2926829269,       'upper', 0.8780487806},...%25dC
+    {'lower', 0.00001305,     'upper', 0.00003915},...%26aAH
+    {'lower', 2,     'upper', 6},... %27bAH   
+    {'lower', 0.2,     'upper', 0.6},...%28aRA
+    {'lower', 10,     'upper', 30},... %29bRA
+    {'lower', 1,       'upper', 3},... %30aIRA   
+    {'lower', 178,      'upper', 534},... %31bIRA
+    {'lower', 0.16665,   'upper', 0.49995},... %32dH
+    {'lower', 0.025,      'upper', 0.075},... %33dL
+    {'lower', 5,     'upper', 15},... %34aCL
+    {'lower', 100,       'upper', 300}};  %35bCL
 
 
 
 size(parsObj.parameters)
 parsObj.lb = num2cell(repmat(-inf, 1, length(parsObj.name)));
 parsObj.ub = num2cell(inf(1, length(parsObj.name)));
-parsObj.N=1000; 
+parsObj.N=100; 
 samples = getSamplesSobol(parsObj, false);
 
 %%
@@ -107,7 +108,7 @@ ylabel('QOI')
 %%
 % 5. Estimating the finite difference based
 Y = QOI';
-S = sobolAnalysis(Y, length(parsName), parsObj.N, 1000, 0.95);
+S = sobolAnalysis(Y, length(parsName), parsObj.N, 100, 0.95);
 
 Si = sobolAnalysis(Y, length(parsObj.name), parsObj.N);
 
