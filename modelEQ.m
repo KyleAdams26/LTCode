@@ -65,7 +65,7 @@ function modelEQ
     I0 = 0.0113; % IL-2
     Tc0 = 100; % Tc cells  
     Th0 = 70; % Helper T cells
-    L0 = 2*(10^11); % Liver cells
+    L0 = 2*(10^9); % Liver cells
 
 
     % The integration settings defined by options
