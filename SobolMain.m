@@ -150,3 +150,8 @@ for ii = 1:length(parsName)
 end
 
 end
+
+%saving data to send
+
+writematrix(QOICells, 'ALLCELLS.txt')
+writetable(mytable, "SAValues.txt")
