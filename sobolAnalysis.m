@@ -1,3 +1,5 @@
+%This file calculates the S1, S2, and ST values
+%It can also calculate the confidence intervals for these values, but that is commented out. 
 function results = sobolAnalysis(Y, k, N, numResamples, confLevel)
 arguments
     Y % estimated output value at the samples
@@ -54,6 +56,7 @@ if ~isempty(BA)
                 ABall{i}(r), ABall{j}(r), BAall{i}(r)));
         end
     end
+    % this block calculates the confidence interval for S2
     % ij = nchoosek(1:k, 2); % all ij combinations
     % f = @(x, y, z)secondOrder(A, B, x, y, z);
     % Sij = cellfun(f,  ABall(ij(:, 1)),...
