@@ -17,7 +17,7 @@ end
 
 N = paramObj.N; % Number of base samples - this will get multiplied by (K+2) for first-order S1
 k = length(paramObj.name);
-sgenerator = sobolset(k * 2); doubling the number of samples allows for enough samples to create 2 matrices
+sgenerator = sobolset(k * 2); doubling the number of samples to create 2 matrices (A & B) below
 samples = sgenerator(1:N, :);
 
 
