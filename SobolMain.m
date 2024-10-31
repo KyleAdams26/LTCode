@@ -99,6 +99,7 @@ QOICells = QOI ;
 
 size(QOI)
 size(samples)
+
 %%
 % 4. Scatter Plot of QOI vs selected parameters
  plotScatter(samples, QOICells, parsName, ...
@@ -106,7 +107,7 @@ size(samples)
 ylabel('QOI')
 
 %%
-% 5. Estimating the finite difference based
+% 5. Estimating the Sobol Index values
 Y = QOI';
 S = sobolAnalysis(Y, length(parsName), parsObj.N, 100, 0.95);
 
