@@ -3,7 +3,7 @@ arguments
     Y % estimated output value at the samples
     k % dimension of input parameters
     N % number of base samples
-    numResamples = 3; %
+    numResamples = 3; % # of samples used to calculate confidence intervals for S1, S2, ST
     confLevel = 0.95;
 end
 
@@ -24,6 +24,7 @@ results.S1 = cellfun(f, ABall, 'UniformOutput',false);
 f = @(x)Z*std(firstOrder(A(r), B(r), x(r)));
 results.S1conf = cellfun(f, ABall, 'UniformOutput', false);
 
+% this block calculates the confidence interval for S1
 % results.S1conf = cell(k, 1);
 % for ii = 1:k
 %     ABi = ABall{ii};
