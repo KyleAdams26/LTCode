@@ -6,7 +6,7 @@ function p = parameters()
     % Parikh's code.
     
     % parameters: 
-    p.lL = 0.00000452; %1
+    p.lL = 0.00000000452; %1
     p.dA = 0.0833; %2
 
     p.sR = 0.107; %3

@@ -2,7 +2,7 @@ function modelEQ
     
     endTime = 30; %initializing QOI time
     %initializing colors
-    A_color = [254/255, 78/255, 76/255]; 
+    A_color = [250/255, 129/255, 113/255]; 
     Tr_color = [139/255, 235/255, 229/255];
     I_color = [251/255, 186/255, 27/255];
     Tc_color = [252/255, 132/255, 217/255];
@@ -19,7 +19,7 @@ function modelEQ
             dL aCL bCL ... %35 parameters
 
     % ------ Initialize parameters  ------ %
-    lL = 0.00000452; %1
+    lL = 0.00000000452; %1
     dA = 0.0833; %2
 
     sR = 0.107; %3
@@ -65,7 +65,7 @@ function modelEQ
     I0 = 0.0113; % IL-2
     Tc0 = 100; % Tc cells  
     Th0 = 70; % Helper T cells
-    L0 = 2*(10^9); % Liver cells
+    L0 = 2*(10^11); % Liver cells
 
 
     % The integration settings defined by options
@@ -93,6 +93,7 @@ function modelEQ
     ylabel('L (cells/\mu L)')
     title('Liver hepatocytes (L) over time')
     ax = gca;
+    ax.Title.FontSize = 10;
     ax.XAxis.FontSize = 10;
     ax.YAxis.FontSize = 10;
 

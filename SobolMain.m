@@ -39,7 +39,7 @@ parsObj.dist = {'Uniform', 'Uniform' , 'Uniform',...
 nParameters = length(parsObj.name);
 
 parsObj.parameters = {
-    {'lower', 0.0000226,      'upper', 0.0000678},... %1lL
+    {'lower', 0.00000000226,      'upper', 0.00000000678},... %1lL
     {'lower', 0.04165,   'upper', 0.12495},... %2dA;
     {'lower', 0.0535,     'upper', 0.1605},... %3sR
     {'lower', 0.0329,       'upper', 0.0987},... %4dR
@@ -80,7 +80,7 @@ parsObj.parameters = {
 size(parsObj.parameters)
 parsObj.lb = num2cell(repmat(-inf, 1, length(parsObj.name)));
 parsObj.ub = num2cell(inf(1, length(parsObj.name)));
-parsObj.N = 1000; 
+parsObj.N = 100000; 
 samples = getSamplesSobol(parsObj, false);
 
 %%
@@ -109,7 +109,7 @@ ylabel('QOI')
 %%
 % 5. Estimating the Sobol Index values
 Y = QOI';
-S = sobolAnalysis(Y, length(parsName), parsObj.N, 3, 0.95);
+S = sobolAnalysis(Y, length(parsName), parsObj.N, 1, 0.95);
 
 Si = sobolAnalysis(Y, length(parsObj.name), parsObj.N);
 
@@ -156,3 +156,4 @@ end
 
 writematrix(QOICells, 'ALLCELLS.txt')
 writetable(mytable, "SAValues.txt")
+
