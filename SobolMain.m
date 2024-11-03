@@ -80,7 +80,7 @@ parsObj.parameters = {
 size(parsObj.parameters)
 parsObj.lb = num2cell(repmat(-inf, 1, length(parsObj.name)));
 parsObj.ub = num2cell(inf(1, length(parsObj.name)));
-parsObj.N=100; 
+parsObj.N = 1000; 
 samples = getSamplesSobol(parsObj, false);
 
 %%
@@ -108,7 +108,7 @@ ylabel('QOI')
 %%
 % 5. Estimating the finite difference based
 Y = QOI';
-S = sobolAnalysis(Y, length(parsName), parsObj.N, 100, 0.95);
+S = sobolAnalysis(Y, length(parsName), parsObj.N, 3, 0.95);
 
 Si = sobolAnalysis(Y, length(parsObj.name), parsObj.N);
 

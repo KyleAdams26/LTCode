@@ -13,13 +13,13 @@ function modelEQ
     % ------ Initialize constant parameters ------ %
     global lL dA ...
             sR dR aIR bIR ...
-            aCI bCI aHI bHI lC gC KC aIC bIC lH gH KH bIC bIH lR dI ...
+            aCI bCI aHI bHI lC gC KC aIC bIC lH gH KH bIH lR dI ...
             aHC bHC dC ...
             aAH bAH aRA bRA aIRA bIRA dH ...
-            dL aCL bCL ... %3 parameters
+            dL aCL bCL ... %35 parameters
 
     % ------ Initialize parameters  ------ %
-    lL = 0.000000001; %1
+    lL = 0.00000452; %1
     dA = 0.0833; %2
 
     sR = 0.107; %3
@@ -65,7 +65,7 @@ function modelEQ
     I0 = 0.0113; % IL-2
     Tc0 = 100; % Tc cells  
     Th0 = 70; % Helper T cells
-    L0 = 2*(10^11); % Liver cells
+    L0 = 2*(10^9); % Liver cells
 
 
     % The integration settings defined by options
