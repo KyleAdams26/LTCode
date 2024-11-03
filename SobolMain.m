@@ -39,7 +39,7 @@ parsObj.dist = {'Uniform', 'Uniform' , 'Uniform',...
 nParameters = length(parsObj.name);
 
 parsObj.parameters = {
-    {'lower', 0.0000000005,      'upper', 0.000000005},... %1lL
+    {'lower', 0.0000226,      'upper', 0.0000678},... %1lL
     {'lower', 0.04165,   'upper', 0.12495},... %2dA;
     {'lower', 0.0535,     'upper', 0.1605},... %3sR
     {'lower', 0.0329,       'upper', 0.0987},... %4dR
@@ -99,6 +99,7 @@ QOICells = QOI ;
 
 size(QOI)
 size(samples)
+
 %%
 % 4. Scatter Plot of QOI vs selected parameters
  plotScatter(samples, QOICells, parsName, ...
@@ -106,7 +107,7 @@ size(samples)
 ylabel('QOI')
 
 %%
-% 5. Estimating the finite difference based
+% 5. Estimating the Sobol Index values
 Y = QOI';
 S = sobolAnalysis(Y, length(parsName), parsObj.N, 3, 0.95);
 
@@ -150,3 +151,8 @@ for ii = 1:length(parsName)
 end
 
 end
+
+%saving data to send
+
+writematrix(QOICells, 'ALLCELLS.txt')
+writetable(mytable, "SAValues.txt")

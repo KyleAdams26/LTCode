@@ -15,9 +15,9 @@ end
 % see also sobolset sgenerator makedist
 
 
-N = paramObj.N; % Number of base samples
+N = paramObj.N; % Number of base samples - this will get multiplied by (K+2) for first-order S1
 k = length(paramObj.name);
-sgenerator = sobolset(k * 2);
+sgenerator = sobolset(k * 2); % doubling the number of samples to create 2 matrices (A & B) below
 samples = sgenerator(1:N, :);
 
 
