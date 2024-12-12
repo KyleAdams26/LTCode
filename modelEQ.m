@@ -183,7 +183,7 @@ function modelEQ
 
 
     % Dynamics 
-    dy(1)  = lL*(dL)*L*(1+ePath) - iPath ; %dAdt
+    dy(1)  = lL*(dL)*L*(1+ePath) - iPath;  %dAdt
     dy(2)  = vPath - zPath*uPath; %dTrdt
     dy(3)  = nPath + oPath -lC*pPath*qPath -lH*sPath*rPath - lR*zPath*uPath - wPath;
     dy(4)  = lPath + pPath*qPath - tPath; %dTcdt
