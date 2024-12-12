@@ -5,11 +5,11 @@ arguments
     Y % estimated output value at the samples
     k % dimension of input parameters
     N % number of base samples
-    numResamples = 3; % # of samples used to calculate confidence intervals for S1, S2, ST
+    numResamples = 1; % # of samples used to calculate confidence intervals for S1, S2, ST
     confLevel = 0.95;
 end
 
-% Nomalize the model output
+% Normalize the model output
 % Estimates of the Sobol' indices can be 
 % biased for non-centered outputs
 Y = (Y - mean(Y))./std(Y);
