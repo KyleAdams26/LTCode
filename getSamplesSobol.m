@@ -1,7 +1,7 @@
 function [samples, sampleDist] = getSamplesSobol(paramObj, ...
     calcSecondOrder)
 arguments
-    paramObj;
+    paramObj;%note: this is called parsObj in SobolMain
     calcSecondOrder logical; % 
 end
 % getSamplesSobol provides the sobol samples using structured sampling
@@ -18,28 +18,30 @@ end
 N = paramObj.N; % Number of base samples - this will get multiplied by (K+2) for first-order S1
 k = length(paramObj.name);
 sgenerator = sobolset(k * 2); % doubling the number of samples to create 2 matrices (A & B) below
-samples = sgenerator(1:N, :);
+%the line above creates a higher-dimensional object of dimension k*2
+samples = sgenerator(1:N, :); %Taking out the desired number of samples from the higher-dimensional object
 
 
 
-samples = mat2cell(samples, N, [k, k]);
-samples = cell2mat(samples');
+samples = mat2cell(samples, N, [k, k]);%separates the matrix into a row of N kxk cells
+samples = cell2mat(samples');%Transforms the cells into a column of N kxk matrices
 
-
+%calls the function below beginning on line 44 to take the samples and generate the matrices and their products
 [A, B, AB, BA] = createMatricesForSobolIndices(samples);
 
 if ~calcSecondOrder
-    samples = [A; B; AB];
+    samples = [A; B; AB];%puts matrices into desired object for second order
 else
-    samples = [A;B;AB;BA];
+    samples = [A;B;AB;BA];%puts matrices into desired object for first order
 end
 
-sampleDist = cell(1, k);
-[sampleDist{:}] = deal(makedist('Uniform'));
-
+sampleDist = cell(1, k);%makes an object of type cell with dimension 1xk
+[sampleDist{:}] = deal(makedist('Uniform'));%makes a standard uniform distribution [0,1] and fills each cell with that
+%Calls a function to take the parameter object along with the sobol matrices and the
+%standard uniform distributions and return sobol matrices that are in the parameter space
 samples = getSamplesDesiredDist(paramObj, samples, sampleDist);
 end
-
+%This function takes the NxKxK object and transforms it into sobol matrices
 function [A, B, AB, BA] = createMatricesForSobolIndices(samples)
 arguments
     samples = reshape(1:8, 2, [])'; % default matrix for test
