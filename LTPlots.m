@@ -66,20 +66,22 @@ ALLCELLS = readmatrix('3milALLCELLS.txt', 'Delimiter', ',');
 
 
 SEVENCELLS = readmatrix('3milSEVENCELLS.txt'); 
-SEVENCELLS = SEVENCELLS(~isnan(SEVENCELLS));  % Remove NaN values
+%SEVENCELLS = SEVENCELLS(~isnan(SEVENCELLS));  % Remove NaN values
 TWNETYEIGHTCELLS = readmatrix('3milTWENTYEIGHTCELLS.txt');
 
 % Use the subset function to get a random subset of ALLCELLS with the same size as SEVENCELLS
 subset_allcells_seven = subset(ALLCELLS, length(SEVENCELLS));
 
 % Define common bin edges for the histograms
-num_bins = 100; % Specify the number of bins
-bin_edges = linspace(0, 2e11, num_bins+1); % Create bin edges from 0 to 2e11
+%num_bins = 100; % Specify the number of bins
+%bin_edges = linspace(0, 2e11, num_bins+1); % Create bin edges from 0 to 2e11
+
 % Plot histograms of the random subset against SEVENCELLS
 figure;
 hold on;
 histogram(subset_allcells_seven, 'EdgeColor', 'red', 'DisplayStyle', 'stairs'); % Random subset of ALLCELLS
 histogram(SEVENCELLS,'EdgeColor', 'black', 'DisplayStyle', 'stairs'); %seven cells
+
 % Create custom legend handles using 'line'
 all_params_handle = plot(nan, nan, 'Color', 'red', 'LineWidth', 1.5);
 seven_params_handle = plot(nan, nan, 'Color', 'black', 'LineWidth', 1.5);
@@ -102,6 +104,7 @@ figure;
 hold on;
 histogram(subset_allcells_twenty_eight, 'EdgeColor', 'red', 'DisplayStyle', 'stairs'); % Random subset of ALLCELLS
 histogram(TWENTYEIGHTCELLS, 'EdgeColor', 'blue', 'DisplayStyle', 'stairs');
+
 % Create custom legend handles using 'line'
 all_params_handle = plot(nan, nan, 'Color', 'red', 'LineWidth', 1.5);
 twentyeight_params_handle = plot(nan, nan, 'Color', 'blue', 'LineWidth', 1.5);
