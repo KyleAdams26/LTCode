@@ -6,7 +6,7 @@
 
 
 % Reading in data from the MATLAB SA results (equivalent of pd.read_csv in Python)
-SA_values = readtable('SAValues.txt', 'Delimiter', ',', 'ReadVariableNames', false);
+SA_values = readtable('3milSAValues.txt', 'Delimiter', ',', 'ReadVariableNames', false);
 SA_values.Properties.VariableNames = {'S1', 'ST'};
 
 % Adding a column of parameter titles
