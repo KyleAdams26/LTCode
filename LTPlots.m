@@ -67,7 +67,7 @@ ALLCELLS = readmatrix('3milALLCELLS.txt', 'Delimiter', ',');
 
 SEVENCELLS = readmatrix('3milSEVENCELLS.txt'); 
 SEVENCELLS = SEVENCELLS(~isnan(SEVENCELLS));  % Remove NaN values
-TWNETYEIGHTCELLS = readmatrix('3milTWENTYEIGHTCELLS.txt');
+TWENTYEIGHTCELLS = readmatrix('3milTWENTYEIGHTCELLS.txt');
 
 % Use the subset function to get a random subset of ALLCELLS with the same size as SEVENCELLS
 subset_allcells_seven = subset(ALLCELLS, length(SEVENCELLS));
