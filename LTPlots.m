@@ -67,7 +67,7 @@ ALLCELLS = readmatrix('3milALLCELLS.txt', 'Delimiter', ',');
 
 SEVENCELLS = readmatrix('3milSEVENCELLS.txt'); 
 %SEVENCELLS = SEVENCELLS(~isnan(SEVENCELLS));  % Remove NaN values
-TWNETYEIGHTCELLS = readmatrix('3milTWENTYEIGHTCELLS.txt');
+TWENTYEIGHTCELLS = readmatrix('3milTWENTYEIGHTCELLS.txt');
 
 % Use the subset function to get a random subset of ALLCELLS with the same size as SEVENCELLS
 subset_allcells_seven = subset(ALLCELLS, length(SEVENCELLS));
@@ -103,7 +103,7 @@ subset_allcells_twenty_eight = subset(ALLCELLS, length(TWENTYEIGHTCELLS));
 figure;
 hold on;
 histogram(subset_allcells_twenty_eight, 'EdgeColor', 'red', 'DisplayStyle', 'stairs'); % Random subset of ALLCELLS
-histogram(TWENTYEIGHTCELLS, 'EdgeColor', 'blue', 'DisplayStyle', 'stairs');
+histogram(TWENTYEIGHTCELLS, 100, 'EdgeColor', 'blue', 'DisplayStyle', 'stairs');
 
 % Create custom legend handles using 'line'
 all_params_handle = plot(nan, nan, 'Color', 'red', 'LineWidth', 1.5);
