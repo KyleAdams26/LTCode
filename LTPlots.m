@@ -1,7 +1,7 @@
 % Plots for LT
 
-% Necessary files: Sobol indices from sensitivity analysis; QOI
-% distribution from varying all parameters, varying most influential 7 parameters, and
+% Necessary files: Sobol indices from sensitivity analysis;
+% QOI distribution from varying all parameters, varying most influential 7 parameters, and
 % varying least influential 28 parameters
 
 
