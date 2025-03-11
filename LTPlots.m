@@ -1,8 +1,13 @@
-% Plots for LT
+% This file outputs the bar graph showing the ranking of the top 10 influential parameters.
+% It also outpputs plots used to compare variability of QOI distributions.
 
 % Necessary files: Sobol indices from sensitivity analysis;
 % QOI distribution from varying all parameters, varying most influential 7 parameters, and
 % varying least influential 28 parameters
+% SA = sensitivity analysis
+% note to reader: "cells" everywhere is meant to say "parameters". It was not manually corrected in
+% each place due to the files being read in needing to have their titles changed as well, so we leave
+% this note instead.
 
 
 % Reading in data from the MATLAB SA results (equivalent of pd.read_csv in Python)
@@ -58,6 +63,8 @@ hold off;
 % Show the plot
 grid on;
 
+% The rest of the code is for comparing QOI distributions
+
 % Load and plot PDFs of QOIs with all parameters varying vs 7 varying (and
 % then all vs 28)
 
@@ -70,6 +77,7 @@ SEVENCELLS = readmatrix('3milSEVENCELLS.txt');
 TWENTYEIGHTCELLS = readmatrix('3milTWENTYEIGHTCELLS.txt');
 
 % Use the subset function to get a random subset of ALLCELLS with the same size as SEVENCELLS
+% See subset file for description. We want these to be the same size for an accurate comparison
 subset_allcells_seven = subset(ALLCELLS, length(SEVENCELLS));
 
 % Define common bin edges for the histograms
