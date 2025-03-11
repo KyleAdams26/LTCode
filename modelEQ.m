@@ -72,7 +72,8 @@ function modelEQ
     options = odeset('RelTol',1e-12,'AbsTol',1e-12) ;
     x0 = [A0, Tr0, I0, Tc0, Th0, L0] ;
     tspan = [0 endTime] ; 
-    [Tf, Xf] = ode45(@Forward, tspan, x0, options);
+    [Tf, Xf] = ode45(@Forward, tspan, x0, options); %solving system
+    %the next lines store the solutions for each variable of the system for plotting
     AF  = Xf(:,1);
     TrF = Xf(:,2);
     IF  = Xf(:,3);
@@ -81,7 +82,8 @@ function modelEQ
     LF = Xf(:,6);
    
     %% Plots Together %%
-
+    % each plot has the same aesthetic and similar labelings
+    
     tiledlayout(2,3)
 
     % Top left plot
@@ -149,6 +151,7 @@ function modelEQ
     ax.YAxis.FontSize = 10;
    
 
+    %the following function represents the system of ODEs
     function dy = Forward(~,y)
         dy = zeros(6,1);
         % States 
