@@ -1,4 +1,7 @@
 function samples = getSamplesDesiredDist(paramObj, samples, sampleDist)
+%Author: Jaimit Parikh
+%Comments by Dr. Skylar Grey
+
 %Separate out parameter distribution types from parameter object
 paramDistTypes = paramObj.dist;
 %separate out lower bounds for truncation function
@@ -28,6 +31,10 @@ samples = splitapply(...
     1:size(samples, 2));
 end
 
+%inverseTransformSampling is passing elements of samples, and unpacking sampleDist and paramDists
+% for each column of samples, inverseTransform sampling is transforming the distribution
+% of the column from a uniform distribution to a desired distribution, specified by paramDists.
+
 %this function is called by the code in line 25, see line 41 for description of function
 function transformedSamples = inverseTransformSampling(samples, ...
     sampleDist, desiredDist)
@@ -45,6 +52,5 @@ end
 %cdf with the parameter distributions. this transforms the samples into
 %the parameter space.
 transformedSamples = desiredDist.icdf(sampleDist.cdf(samples));
-
 
 end

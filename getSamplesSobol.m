@@ -14,22 +14,27 @@ end
 % Date Last modified: 07-10-2023 (by Dr. Parikh)
 % see also sobolset sgenerator makedist
 
+% comments by Dr. Skylar Grey and Kyle Adams
 
 N = paramObj.N; % Number of base samples - this will get multiplied by (K+2) for first-order S1
-k = length(paramObj.name);
+k = length(paramObj.name);% number of parameters
 sgenerator = sobolset(k * 2); % doubling the number of samples to create 2 matrices (A & B) below
 %the line above creates a higher-dimensional object of dimension k*2
-samples = sgenerator(1:N, :); %Taking out the desired number of samples from the higher-dimensional object
+%"p = sobolset(d) constructs a d-dimensional  point set p, which is a
+%sobolset object with default property settings"
+samples = sgenerator(1:N, :); %gets N rows of k*2 columns
 
 
 
 samples = mat2cell(samples, N, [k, k]);%separates the matrix into a row of N kxk cells
-samples = cell2mat(samples');%Transforms the cells into a column of N kxk matrices
-
+%separates matrix into 2 unique cells, which look like a smaller matrix
+%that is Nxk
+samples = cell2mat(samples');%stacks cells into a N*2 x k matrix, but in reverse
+%looks like cell(2) on top of cell(1)
 %calls the function below beginning on line 44 to take the samples and generate the matrices and their products
 [A, B, AB, BA] = createMatricesForSobolIndices(samples);
 
-if ~calcSecondOrder
+if ~calcSecondOrder %(if not calcSecondOrder)
     samples = [A; B; AB];%puts matrices into desired object for second order
 else
     samples = [A;B;AB;BA];%puts matrices into desired object for first order
@@ -48,8 +53,8 @@ arguments
 end
 
 
-N = length(samples) / 2;
-nInputs = size(samples, 2);
+N = length(samples) / 2; %sets N to be what it originally was
+nInputs = size(samples, 2); %gets number of parameters
 
 % randomly permute the rows of the samples
 % samples = samples(randperm(2*N), :);
@@ -58,17 +63,18 @@ nInputs = size(samples, 2);
 A = samples(1:N, :);
 B = samples(N + 1:end, :);
 
-Arepeat = repmat(A, nInputs, 1); % Matrix A is duplicated nInputs times
+Arepeat = repmat(A, nInputs, 1); %matrix A is duplicated nInputs times
 
-Bcell = num2cell(B, 1);
-Bdiag = blkdiag(Bcell{:});
+Bcell = num2cell(B, 1); %splits cols of B into cells
+Bdiag = blkdiag(Bcell{:}); %makes a block diagonal matrix, each block is a column from B
 AB = Bdiag + Arepeat .* not(Bdiag);
+%not(Bdiag) seems to return 1 in element if Bdiag is 0, return 0 if element
+%in Bdiag is NOT 0
 
-
-Brepeat = repmat(B, nInputs, 1); % Matrix  B is duplicated nInputs times
-Acell = num2cell(A, 1);
-Adiag = blkdiag(Acell{:});
-BA = Adiag + Brepeat .*not(Adiag);
+Brepeat = repmat(B, nInputs, 1); %matrix  B is duplicated nInputs times
+Acell = num2cell(A, 1); %splits cols of A into cells
+Adiag = blkdiag(Acell{:}); %makes a block diagonal matrix, each block is a column from A
+BA = Adiag + Brepeat .*not(Adiag); 
 
 
 end

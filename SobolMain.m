@@ -1,88 +1,40 @@
 % sobol file to run the Sobol sensitivity analysis
 % on the QSP ODE model. 
 % This code originally stems from Dr. Jaimit Parikh, and we modified it to
-% be proper for our purpose.
+% be proper for our purpose. Adjustments and comments were added by Kyle Adams.
 
-%%
-% 1. Get parameters of the model
-parameters = parameters();
+%%changeable here is how you create your bounds. default is
+%%lower bounds are 50% of the nominal value, and upper bounds are 150%
+%% change me %%
+lower_percentage = 0.5;
+upper_percentage = 1.5;
+base_samples = 100000;
+param_dist = {'Uniform'};
+%% ---------- %%
 
+% 1. Get parameters of the model from parameters.m
+p = parameters();
+paramNames = fieldnames(p);
+numParam = length(paramNames);
 
-%%
-% 2. Sample using Sobol sampling the parameter values and running
-% simulations for the samples
+lowBounds = zeros(1, numParam); %initiliazes vector of length numParam with 0s
+upBounds = zeros(1, numParam);
+% 2. Set up bounds for parameters 
+for i = 1:numParam %populates lowBounds and upBounds with bounds listed in parametersBetter
+    param = paramNames{i};
+    lowBounds(i) = p.(param)*lower_percentage; %can adjust percent change of parameter here
+    upBounds(i) = p.(param)*upper_percentage;
+end
 
-% Sampling for the desired parameters
-
-%Here is an array of the parameter names
-parsObj.name = ["lL", "dA", ...
-                "sR", "dR", "aIR", "bIR", ...
-                "aCI", "bCI", "aHI", "bHI", "lC", "gC", "KC", "aIC", "bIC", "lH", "gH", "KH", "aIH", "bIH", "lR", "dI" ...
-                "aHC", "bHC", "dC", ...
-                "aAH", "bAH", "aRA", "bRA", "aIRA", "bIRA", "dH", ...
-                "dL", "aCL", "bCL"];
-            
-
-%Here is an array of distributions we want to sample possible parameter values from
-parsObj.dist = {'Uniform', 'Uniform' , 'Uniform',...
-    'Uniform', 'Uniform', 'Uniform',...
-    'Uniform','Uniform', 'Uniform',...
-    'Uniform', 'Uniform', 'Uniform',...
-    'Uniform','Uniform', 'Uniform',...
-    'Uniform', 'Uniform', 'Uniform',...
-    'Uniform','Uniform', 'Uniform',...
-    'Uniform', 'Uniform', 'Uniform',...
-    'Uniform','Uniform', 'Uniform',...
-    'Uniform', 'Uniform', 'Uniform',...
-    'Uniform','Uniform', 'Uniform',...
-    'Uniform', 'Uniform'};
-
-nParameters = length(parsObj.name);
-
-%Here we manually write ranges for the parameter sampling, where the lower is 0.5*nominal and the upper is 1.5*nominal
-parsObj.parameters = {
-    {'lower', 0.00000000226,      'upper', 0.00000000678},... %1lL
-    {'lower', 0.04165,   'upper', 0.12495},... %2dA;
-    {'lower', 0.0535,     'upper', 0.1605},... %3sR
-    {'lower', 0.0329,       'upper', 0.0987},... %4dR
-    {'lower', 0.3125,       'upper', 0.9375},...    %5aIR
-    {'lower', 0.004165,      'upper', 0.012495},... %6bIR
-    {'lower', 0.18,     'upper', 0.54},... %7aCI
-    {'lower', 176,   'upper', 528},... %8bCI
-    {'lower', 35.35,       'upper', 106.5},... %9aHI
-    {'lower', 49.85,       'upper', 149.55},... %10bHI
-    {'lower', 0.0005,   'upper', 0.0015},... %11lC
-    {'lower', 1.04,     'upper', 3.12},... %12gC
-    {'lower', 299,       'upper', 897},... %13KC
-    {'lower', 1,       'upper', 3},... %14aIC
-    {'lower', 0.089,     'upper', 0.267},... %15bIC
-    {'lower', 0.00000315,   'upper', 0.00000945},... %16lH
-    {'lower', 0.755,     'upper', 2.265},... %17gH
-    {'lower', 211,       'upper', 633},... %18KH
-    {'lower', 1,       'upper', 3},... %19aIH
-    {'lower', 0.089,       'upper', .267},...    %20bIH
-    {'lower', 0.0000003335,      'upper', 0.0000010005},... %21lR
-    {'lower', 83,        'upper', 249},... %22dI
-    {'lower', 0.5,     'upper', 1.5},... %23aHC
-    {'lower', 17.5,       'upper', 52.5},...    %24bHC
-    {'lower', 0.2925,       'upper', 0.8775},...%25dC
-    {'lower', 0.00001305,     'upper', 0.00003915},...%26aAH
-    {'lower', 2,     'upper', 6},... %27bAH   
-    {'lower', 0.2,     'upper', 0.6},...%28aRA
-    {'lower', 10,     'upper', 30},... %29bRA
-    {'lower', 1,       'upper', 3},... %30aIRA   
-    {'lower', .178,      'upper', .534},... %31bIRA
-    {'lower', 0.16665,   'upper', 0.49995},... %32dH
-    {'lower', 0.0025,      'upper', 0.0075},... %33dL
-    {'lower', 5,     'upper', 15},... %34aCL
-    {'lower', 100,       'upper', 300}};  %35bCL
-
-
-
-size(parsObj.parameters)
+%storing this info in structure called parsObj, used in getSamplesSobol
+parsObj.name = paramNames'; %transpose so the dimensions of each field match
 parsObj.lb = num2cell(repmat(-inf, 1, length(parsObj.name)));
 parsObj.ub = num2cell(inf(1, length(parsObj.name)));
-parsObj.N = 100000; 
+parsObj.dist = repmat(param_dist, 1, numParam);
+parsObj.N = base_samples; %how many sobol samples you want
+%below is a field that stores each parameter's bounds
+parsObj.parameters = arrayfun(@(i) {'lower', lowBounds(i), 'upper', upBounds(i)}, 1:numParam, 'UniformOutput', false);
+
 samples = getSamplesSobol(parsObj, false);
 
 %%
@@ -90,21 +42,19 @@ samples = getSamplesSobol(parsObj, false);
 % QOI cells at the end of 30 days
 
 parsName = parsObj.name;
-t0 = 0; tfinal = 30;
 QOI = zeros(1, length(samples));
 pN = cell(1,length(samples));
 parfor ii = 1:length(samples)
-    pN{ii} = updatePars(parameters, parsName, samples(ii, :));
+    pN{ii} = updatePars(p, parsName, samples(ii, :));
     QOI(ii) = qoi(pN{ii});
 end
-QOICells = QOI ;
 
-size(QOI)
-size(samples)
+%stores QOI distribution for histogram comparison later
+QOI_all_varying = QOI;
 
 %%
-% 4. Scatter Plot of QOI vs selected parameters
- plotScatter(samples, QOICells, parsName, ...
+% 4. Scatter Plot of QOI vs selected patrameters
+ plotScatter(samples, QOI, parsName, ...
     'scatterSobol.png');
 ylabel('QOI')
 
@@ -123,18 +73,30 @@ disp(sortTable)
 writetable(sortTable, 'sortedSobol2.csv', 'WriteRowNames',true)
 
 
+%preparing for figure in order of descending total sensitivity indices
+S1 = cell2mat(S.S1);
+ST = cell2mat(S.ST);
+[ST_sorted, idx] = sort(ST, 'descend');
+S1_sorted = S1(idx);
+paramNames_sorted = paramNames(idx);
+
+%plotting sensitivity indices
+hold on;
+figure('DefaultAxesFontSize', 16);
+b = bar([S1_sorted, ST_sorted], 'grouped');
+b(1).FaceColor = [1 0.79 0.63];
+b(2).FaceColor =  [0 0.188 0.69];
+set(gca, 'FontName', 'Times New Roman')
+xticks(1:length(paramNames_sorted));
+xticklabels(paramNames_sorted)
+xtickangle(45);
+ylabel('Sensitivity Index', 'FontSize', 16, 'FontName', 'serif');
+legend({'S1', 'ST'}, 'FontSize', 16, 'FontName', 'serif');
+hold off;
 
 
-f=figure('DefaultAxesFontSize', 16);
-subplot(1,2,1)
-bar(cell2mat(S.S1), 'FaceColor', 'k');
-ylabel('S1', 'FontSize', 16);
-
-subplot(1,2,2)
-bar(cell2mat(S.ST), 'FaceColor', 'k');
-ylabel('ST', 'FontSize', 16);
-
-
+%gives a scatterplot of each parameter's value vs what QOI value it
+%produced
 function plotScatter(samples, QOI,  parsName, fname) 
 f = figure('DefaultAxesFontSize', 14);
 tiledlayout('flow')
@@ -154,8 +116,9 @@ end
 
 end
 
-%saving data to send
+%saving data
 
-writematrix(QOICells, 'ALLCELLS.txt')
-writetable(mytable, "SAValues.txt")
+%writematrix(QOI, 'QOIvalues.txt') %saves QOI values
+%writetable(mytable, "SAValues.txt") %saves sensitivity indices
+
 
