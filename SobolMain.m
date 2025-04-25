@@ -8,7 +8,7 @@
 %% change me %%
 lower_percentage = 0.5;
 upper_percentage = 1.5;
-base_samples = 100000;
+base_samples = 175000;
 param_dist = {'Uniform'};
 %% ---------- %%
 
@@ -54,9 +54,9 @@ QOI_all_varying = QOI;
 
 %%
 % 4. Scatter Plot of QOI vs selected patrameters
- plotScatter(samples, QOI, parsName, ...
-    'scatterSobol.png');
-ylabel('QOI')
+% plotScatter(samples, QOI, parsName, ...
+ %   'scatterSobol.png');
+%ylabel('QOI')
 
 %%
 % 5. Estimating the Sobol Index values
@@ -87,6 +87,7 @@ b = bar([S1_sorted, ST_sorted], 'grouped');
 b(1).FaceColor = [1 0.79 0.63];
 b(2).FaceColor =  [0 0.188 0.69];
 set(gca, 'FontName', 'Times New Roman')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0.04, 1, 0.96]); %maximizes figure on screen
 xticks(1:length(paramNames_sorted));
 xticklabels(paramNames_sorted)
 xtickangle(45);

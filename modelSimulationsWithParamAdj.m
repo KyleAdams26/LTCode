@@ -46,6 +46,7 @@ function modelSimulationsWithParamAdj
     %Axis settings
     xlim([0 endTime]);
     xticks(0:10:30);
+    ylim([0.4e11 2e11]);
     xlabel('Time (Days)');
     ylabel('L (cells/\mu L)');
     title('Liver hepatocytes (L)');

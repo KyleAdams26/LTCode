@@ -9,10 +9,12 @@
 %% change me %%
 lower_percentage = 0.5;
 upper_percentage = 1.5;
-base_samples = 100000;
+base_samples = 175000;
 param_dist = {'Uniform'};
-varying_params = {'aCL', 'dL', 'gC', 'bCL', 'dI'};
-numVarying = 5;
+%varying_params = {'aHI', 'dC', 'dI', 'aIH', 'gH', 'dH', 'bHI', 'bIH', 'bIC', 'KH', 'aHC', 'aCI', 'aIC', 'bHC', 'bCI', 'dA', 'lL', 'sR', 'bIR', 'aRA', 'aIRA', 'lR', 'aIR', 'bRA', 'bIRA', 'bAH', 'dR', 'aAH', 'lH'};
+%numVarying = 29;
+varying_params = {'aCL', 'dL', 'bCL', 'KC', 'gC', 'aIC'};
+numVarying = 6;
 %% ---------- %%
 
 % 1. Get subset varying_params of parameters of the model from parameters.m
@@ -28,7 +30,7 @@ disp(p_subset)
 paramNames = fieldnames(p_subset);
 numParam = length(paramNames);
 
-lowBounds = zeros(1, numParam); %initiliazes vector of length numParam with 0s
+lowBounds = zeros(1, numParam); %initializes vector of length numParam with 0s
 upBounds = zeros(1, numParam);
 
 
@@ -63,11 +65,24 @@ parfor ii = 1:length(samples)
 end
 
 %saving QOI with some fixed parameters for histogram comparison
-QOI_with_fixed_params = QOI;
+%QOI_with_fixed_params = QOI;
+QOI_6 = QOI;
 
 %plot histograms of comparing QOI distributions and perform KS test
 plotHistogram(numVarying, QOI_all_varying, QOI_with_fixed_params);
-[h,p] = kstest2(QOI_all_varying, QOI_with_fixed_params);
+[h,p, ks2stat] = kstest2(QOI_all_varying, QOI_with_fixed_params);
+
+
+%cdf plots
+figure;
+hold on;
+c1 = cdfplot(QOI_with_fixed_params);
+c2 = cdfplot(subset(QOI_all_varying, length(QOI_with_fixed_params)));
+c1.LineWidth = 2;
+c2.LineWidth = 2;
+legend({'All Parameters Varied', sprintf('%d Parameters Varied', numVarying)}, ...
+    'FontSize', 12, 'FontName', 'serif', 'Location', 'northwest');
+hold off;
 
 function p = updatePars(p, parsName, parsValue)
 
@@ -80,7 +95,7 @@ end
 function plotHistogram(numVarying, QOI_all, QOI_some)
 figure;
 hold on;
-subset_QOI_all = subset(QOI_all, length(QOI_some));
+subset_QOI_all = subset(QOI_all, 1400000);
 histogram(subset_QOI_all,'EdgeColor', 'red', 'DisplayStyle', 'stairs', 'LineWidth', 2);
 histogram(QOI_some,'EdgeColor', 'blue', 'DisplayStyle', 'stairs', 'LineWidth', 2);
 legend({'All Parameters Varied', sprintf('%d Parameters Varied', numVarying)}, ...
