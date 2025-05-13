@@ -3,17 +3,27 @@
 % This code originally stems from Dr. Jaimit Parikh, and we modified it to
 % be proper for our purpose. Adjustments and comments were added by Kyle Adams.
 
+%get parameters from parameters.m
+p = parameters();
+
+%making output folder with a timestamp
+timestamp = datestr(now, 'yyyymmdd_HHMMSS');
+outdir = fullfile('paramsUsed', ['run_', timestamp]);
+mkdir(outdir);
+
+%saving particular parameter values used to generate sensitivity indices
+save(fullfile(outdir, 'params_used.mat'), '-struct', 'p');
+
 %%changeable here is how you create your bounds. default is
 %%lower bounds are 50% of the nominal value, and upper bounds are 150%
 %% change me %%
 lower_percentage = 0.5;
 upper_percentage = 1.5;
-base_samples = 175000;
+base_samples = 1000;
 param_dist = {'Uniform'};
 %% ---------- %%
 
-% 1. Get parameters of the model from parameters.m
-p = parameters();
+% 1. Set parameter names and length
 paramNames = fieldnames(p);
 numParam = length(paramNames);
 
@@ -118,8 +128,15 @@ end
 end
 
 %saving data
+save(fullfile(outdir, ['sensitivity_results_s1' timestamp '.mat']), 'S1');
+save(fullfile(outdir, ['sensitivity_results_sT' timestamp '.mat']), 'ST');
+writematrix(S1, fullfile(outdir, ['sensitivity_resultsS1' timestamp '.csv']));
+writematrix(ST, fullfile(outdir, ['sensitivity_resultsS1' timestamp '.csv']));
 
-%writematrix(QOI, 'QOIvalues.txt') %saves QOI values
-%writetable(mytable, "SAValues.txt") %saves sensitivity indices
-
-
+%saving entire files
+code_files = {'SobolMain.m', 'parameters.m', 'odefun.m', 'qoi.m'};
+for k = 1:length(code_files)
+    [~, name, ext] = fileparts(code_files{k});
+    dest_filename = [name '_' timestamp ext];
+    copyfile(code_files{k}, fullfile(outdir, dest_filename));
+end
