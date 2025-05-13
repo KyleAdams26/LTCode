@@ -8,7 +8,7 @@
 %% change me %%
 lower_percentage = 0.5;
 upper_percentage = 1.5;
-base_samples = 100000;
+base_samples = 175000;
 param_dist = {'Uniform'};
 %% ---------- %%
 
