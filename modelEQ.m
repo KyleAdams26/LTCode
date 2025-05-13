@@ -38,7 +38,6 @@ function modelEQ
     nexttile
     plot(Tf, LF, 'Color', L_color, 'LineWidth',3)
     xlim([0 tfinal])
-    xticks(0: 10 : 30)
     xlabel('Time (Days)')
     ylabel('L (cells/\mu L)')
     title('Liver hepatocytes (L) over time')
