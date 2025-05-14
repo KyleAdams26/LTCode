@@ -14,7 +14,7 @@ function QOI = qoi(p, debug)
     [T,Y] = ode15s(@(t, y)odefun(t, y, p),...
         [t0 tfinal], IC);
     %we chose the L(T) as our QOI   
-    QOI = Y(end,6);
+    QOI = Y(end,1);
     % results
     if debug
     plotQOI(T, Y);
