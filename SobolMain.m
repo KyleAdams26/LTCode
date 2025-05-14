@@ -3,7 +3,8 @@
 % This code originally stems from Dr. Jaimit Parikh, and we modified it to
 % be proper for our purpose. Adjustments and comments were added by Kyle Adams.
 
-%get parameters from parameters.m
+%get parameters from parameters.m and setting seed for reproducibility
+rng(1);
 p = parameters();
 
 %making output folder with a timestamp
@@ -20,7 +21,11 @@ save(fullfile(outdir, 'params_used.mat'), '-struct', 'p');
 %% change me %%
 lower_percentage = 0.5;
 upper_percentage = 1.5;
+<<<<<<< HEAD
 base_samples = 175000;
+=======
+base_samples = 100000;
+>>>>>>> 2504c6387ae43919f08effa12663ce471ccea6df
 param_dist = {'Uniform'};
 
 %% ---------- %%
