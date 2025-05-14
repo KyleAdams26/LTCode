@@ -3,7 +3,8 @@
 % This code originally stems from Dr. Jaimit Parikh, and we modified it to
 % be proper for our purpose. Adjustments and comments were added by Kyle Adams.
 
-%get parameters from parameters.m
+%get parameters from parameters.m and setting seed for reproducibility
+rng(1);
 p = parameters();
 
 %making output folder with a timestamp
@@ -20,7 +21,7 @@ save(fullfile(outdir, 'params_used.mat'), '-struct', 'p');
 %% change me %%
 lower_percentage = 0.5;
 upper_percentage = 1.5;
-base_samples = 1000;
+base_samples = 100000;
 param_dist = {'Uniform'};
 
 %% ---------- %%
@@ -121,7 +122,7 @@ end
 save(fullfile(outdir, ['sensitivity_results_s1' timestamp '.mat']), 'S1');
 save(fullfile(outdir, ['sensitivity_results_sT' timestamp '.mat']), 'ST');
 writematrix(S1, fullfile(outdir, ['sensitivity_resultsS1' timestamp '.csv']));
-writematrix(ST, fullfile(outdir, ['sensitivity_resultsS1' timestamp '.csv']));
+writematrix(ST, fullfile(outdir, ['sensitivity_resultsST' timestamp '.csv']));
 %saving entire files
 code_files = {'SobolMain.m', 'parameters.m', 'odefun.m', 'qoi.m'};
 for k = 1:length(code_files)
