@@ -11,7 +11,7 @@ function modelEQ
     p = parameters();
 
     %choosing timespan and initial conditions
-    t0 = 0; tfinal = 30; % simulation time in days
+    t0 = 0; tfinal = 400; % simulation time in days
     IC = getInitialConditions(); % get the initial values of the model
     IC = struct2cell(IC); IC = [IC{:}];
 
