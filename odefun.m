@@ -12,12 +12,12 @@ function dcdt = odefun(~, c, p) %QC'd
     % Project.
  
     % # c : levels of 6 biological factors at t. 
-    A = c(1); % Alloantigen
-    Tr = c(2); % Treg cells
-    I = c(3); % IL-2
+    L = c(1); % Liver cells
+    A = c(2); % APCs
+    Th = c(3); % Helper T cells
     Tc = c(4); % Tc cells  
-    Th = c(5); % Helper T cells
-    L = c(6); % Liver cells
+    Tr = c(5); % T reg cells
+    I = c(6); % IL-2
 
     %     # t : time (int)
     %     # x : 35 parameter values
@@ -46,12 +46,12 @@ function dcdt = odefun(~, c, p) %QC'd
 
 
     % Dynamics 
-    dy(1)  = p.lL*(p.dL)*L*(1+ePath) - iPath ; %dAdt
-    dy(2)  = vPath - zPath*uPath; %dTrdt
-    dy(3)  = nPath + oPath -p.lC*pPath*qPath -p.lH*sPath*rPath - p.lR*zPath*uPath - wPath;
+    dy(1) = -p.dL*L*ePath; %dLdt
+    dy(2)  = p.lL*(p.dL)*L*(1+ePath) - iPath ; %dAdt
+    dy(3)  = gPath*(1 - jPath*xPath) + sPath*rPath - yPath;%dThdt
     dy(4)  = lPath + pPath*qPath - tPath; %dTcdt
-    dy(5)  = gPath*(1 - jPath*xPath) + sPath*rPath - yPath;
-    dy(6) = -p.dL*L*ePath; %dLdt
+    dy(5)  = vPath - zPath*uPath; %dTrdt
+    dy(6)  = nPath + oPath -p.lC*pPath*qPath -p.lH*sPath*rPath - p.lR*zPath*uPath - wPath;
 
     dcdt = [dy(1), dy(2), dy(3), dy(4), dy(5), dy(6)]';
 end

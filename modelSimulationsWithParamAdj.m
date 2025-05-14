@@ -18,11 +18,11 @@ function modelSimulationsWithParamAdj
     %simulates the model 
     [T,Y] = ode45(@(t, y)odefun(t, y, param),...
         [t0 tfinal], IC, options);
-    L = Y(:, 6);
+    L = Y(:, 1);
     %choose parameters to show their influence on QOI
-    [T1, Y1, T2, Y2] = solveWithModifiedParam('dL', param, tspan); L1 = Y1(:,6); L2 = Y2(:,6);
-    [T3, Y3, T4, Y4] = solveWithModifiedParam('aCL', param, tspan); L3 = Y3(:,6); L4 = Y4(:,6);
-    [T5, Y5, T6, Y6] = solveWithModifiedParam('gC', param, tspan); L5 = Y5(:,6); L6 = Y6(:,6);
+    [T1, Y1, T2, Y2] = solveWithModifiedParam('dL', param, tspan); L1 = Y1(:,1); L2 = Y2(:,1);
+    [T3, Y3, T4, Y4] = solveWithModifiedParam('aCL', param, tspan); L3 = Y3(:,1); L4 = Y4(:,1);
+    [T5, Y5, T6, Y6] = solveWithModifiedParam('gC', param, tspan); L5 = Y5(:,1); L6 = Y6(:,1);
     
     %plot simulations
     figure;

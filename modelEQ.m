@@ -1,11 +1,11 @@
 function modelEQ
     %initializing colors
+    L_color = [166/255, 107/255, 97/255];
     A_color = [250/255, 129/255, 113/255]; 
+    Th_color = [176/255, 101/255, 243/255];
+    Tc_color = [252/255, 132/255, 217/255];
     Tr_color = [139/255, 235/255, 229/255];
     I_color = [251/255, 186/255, 27/255];
-    Tc_color = [252/255, 132/255, 217/255];
-    Th_color = [176/255, 101/255, 243/255];
-    L_color = [166/255, 107/255, 97/255];
 
     %load in parameters
     p = parameters();
@@ -22,12 +22,12 @@ function modelEQ
     [Tf,Xf] = ode45(@(t, y)odefun(t, y, p),...
         [t0 tfinal], IC, options);
     %the next lines store the solutions for each variable of the system for plotting
-    AF  = Xf(:,1);
-    TrF = Xf(:,2);
-    IF  = Xf(:,3);
+    LF  = Xf(:,1);
+    AF = Xf(:,2);
+    ThF  = Xf(:,3);
     TcF = Xf(:,4);
-    ThF = Xf(:,5);
-    LF = Xf(:,6);
+    TrF = Xf(:,5);
+    IF = Xf(:,6);
    
     %% Plots Together %%
     % each plot has the same aesthetic and similar labelings
