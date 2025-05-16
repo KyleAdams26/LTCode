@@ -6,24 +6,24 @@ function dcdt = odefun(~, c, p) %QC'd
     %   p - parameter structure
     % Outputs:
     % dcdt - Derivatives of the state variables
-    % The credit of this code is for Dr. Jaimit Parikh 
-    % This code was originally modified by Dr. Mahya Aghaee.
-    % Kyle Adams modified this code to be suitable for the Liver Transplant
+    % This code is based on code originally written by Jaimit Parikh
+    % in 2023 and modified by Mahya Aghaee in 2024 
+    % Kyle Adams modified this code in 2025 to be suitable for the Liver Transplant
     % Project.
  
     % # c : levels of 6 biological factors at t. 
-    L = c(1); % Liver cells
-    A = c(2); % APCs
+    L  = c(1); % Liver cells
+    A  = c(2); % APCs
     Th = c(3); % Helper T cells
     Tc = c(4); % Tc cells  
     Tr = c(5); % T reg cells
-    I = c(6); % IL-2
+    I  = c(6); % IL-2
 
     %     # t : time (int)
     %     # x : 35 parameter values
 
-        %% -- The rate change of the 6 populations (Dynamics of the system) -- %%
-        % Paths for the dynamics %
+        %% -- The rate of change of the 6 populations (Dynamics of the system) -- %%
+        % Pathways for the dynamics %
    
     iPath = p.dA*A;
     vPath = p.sR;
@@ -46,12 +46,12 @@ function dcdt = odefun(~, c, p) %QC'd
 
 
     % Dynamics 
-    dy(1) = -p.dL*L*ePath; %dLdt
+    dy(1)  = -p.dL*L*ePath; %dLdt
     dy(2)  = p.lL*(p.dL)*L*(1+ePath) - iPath ; %dAdt
     dy(3)  = gPath*(1 - jPath*xPath) + sPath*rPath - yPath;%dThdt
     dy(4)  = lPath + pPath*qPath - tPath; %dTcdt
     dy(5)  = vPath - zPath*uPath; %dTrdt
-    dy(6)  = nPath + oPath -p.lC*pPath*qPath -p.lH*sPath*rPath - p.lR*zPath*uPath - wPath;
+    dy(6)  = nPath + oPath -p.lC*pPath*qPath -p.lH*sPath*rPath - p.lR*zPath*uPath - wPath; %dIdt
 
     dcdt = [dy(1), dy(2), dy(3), dy(4), dy(5), dy(6)]';
 end
