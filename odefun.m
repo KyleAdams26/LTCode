@@ -27,6 +27,7 @@ function dcdt = odefun(~, c, p) %QC'd
    
     ePath = p.aCL*Tc/(p.bCL + Tc);
     gPath = p.aAH*A/(p.bAH + A);
+    hPath = 
     iPath = p.dA*A;
     jPath = p.aRA*Tr/(p.bRA + Tr);
     lPath = p.aHC*Th/(p.bHC + Th);
