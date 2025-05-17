@@ -27,7 +27,7 @@ function dcdt = odefun(~, c, p) %QC'd
    
     ePath = p.aCL*Tc/(p.bCL + Tc);
     gPath = p.aAH*A/(p.bAH + A);
-    hPath = 
+    hPath = p.dL*L;
     iPath = p.dA*A;
     jPath = p.aRA*Tr/(p.bRA + Tr);
     lPath = p.aHC*Th/(p.bHC + Th);
@@ -48,7 +48,7 @@ function dcdt = odefun(~, c, p) %QC'd
 
 
     % Dynamics 
-    dy(1) = -p.dL*L*ePath; %dLdt
+    dy(1) = -hPath*ePath; %dLdt
     dy(2)  = p.lL*(p.dL)*L*(1+ePath) - iPath ; %dAdt
     dy(3)  = gPath*(1 - jPath*xPath) + sPath*rPath - yPath;%dThdt
     dy(4)  = lPath + pPath*qPath - tPath; %dTcdt

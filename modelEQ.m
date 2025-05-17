@@ -6,6 +6,7 @@ function modelEQ
     Tc_color = [252/255, 132/255, 217/255]; % pink
     Tr_color = [139/255, 235/255, 229/255]; % turquoise
     I_color  = [251/255, 186/255,  27/255]; % goldenrod
+    line_width = 4;
 
     %load the parameter names and values
     p = parameters();
@@ -38,7 +39,7 @@ function modelEQ
 
     % Top left plot
     nexttile
-    plot(Tf, LF, 'Color', L_color, 'LineWidth',3)
+    plot(Tf, LF, 'Color', L_color, 'LineWidth',line_width)
     xlim([0 tfinal])
     xlabel('Time (days)')
     ylabel('L (cells/\mu L)')
@@ -50,7 +51,7 @@ function modelEQ
 
     % Top middle plot
     nexttile
-    plot(Tf,AF,'Color', A_color,'LineWidth', 3)
+    plot(Tf,AF,'Color', A_color,'LineWidth', line_width)
     title('Cell Populations')
     xlim([0 tfinal]) 
     xlabel('Time (days)')
@@ -61,7 +62,7 @@ function modelEQ
 
     % Top right plot
     nexttile
-    plot(Tf,TcF, 'Color', Tc_color, 'LineWidth', 3)
+    plot(Tf,TcF, 'Color', Tc_color, 'LineWidth', line_width)
     xlim([0 tfinal])
     xlabel('Time (days)')
     ylabel('T_{C} (cells/\mu L)')
@@ -71,7 +72,7 @@ function modelEQ
 
     % Bottom left plot
     nexttile
-    plot(Tf,ThF, 'Color', Th_color,'LineWidth',3 )
+    plot(Tf,ThF, 'Color', Th_color,'LineWidth',line_width)
     xlim([0 tfinal])
     xlabel('Time (days)')
     ylabel('T_{H} (cells/\mu L)')
@@ -81,7 +82,7 @@ function modelEQ
 
     % Bottom middle plot
     nexttile
-    plot(Tf,TrF,'Color', Tr_color, 'LineWidth',3)
+    plot(Tf,TrF,'Color', Tr_color, 'LineWidth',line_width)
     xlim([0 tfinal])
     xlabel('Time (days)')
     ylabel('T_{R} (cells/\mu L)')
@@ -91,7 +92,7 @@ function modelEQ
 
     % Bottom right plot
     nexttile
-    plot(Tf,IF,'Color', I_color,'LineWidth',3)
+    plot(Tf,IF,'Color', I_color,'LineWidth',line_width)
     xlim([0 tfinal])
     xlabel('Time (days)')
     ylabel('I (ng/\mu L)')
