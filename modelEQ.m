@@ -45,9 +45,7 @@ function modelEQ
     ylabel('L (cells/\mu L)')
     title('Liver hepatocytes (L) over time')
     ax = gca;
-    ax.Title.FontSize = 10;
-    ax.XAxis.FontSize = 10;
-    ax.YAxis.FontSize = 10;
+    formatAxes(ax);
 
     % Top middle plot
     nexttile
@@ -57,8 +55,8 @@ function modelEQ
     xlabel('Time (days)')
     ylabel('A (cells/\mu L)')
     title('APCs (A) over time')
-    ax.XAxis.FontSize = 10;
-    ax.YAxis.FontSize = 10;
+    ax = gca;
+    formatAxes(ax);
 
     % Top right plot
     nexttile
@@ -67,8 +65,8 @@ function modelEQ
     xlabel('Time (days)')
     ylabel('T_{C} (cells/\mu L)')
     title('Cytotoxic T cells (T_{C}) over time')
-    ax.XAxis.FontSize = 10;
-    ax.YAxis.FontSize = 10;
+    ax = gca;
+    formatAxes(ax);
 
     % Bottom left plot
     nexttile
@@ -77,8 +75,8 @@ function modelEQ
     xlabel('Time (days)')
     ylabel('T_{H} (cells/\mu L)')
     title('Helper T cells (T_{H}) over time')
-    ax.XAxis.FontSize = 10;
-    ax.YAxis.FontSize = 10;
+    ax = gca;
+    formatAxes(ax);
 
     % Bottom middle plot
     nexttile
@@ -87,8 +85,8 @@ function modelEQ
     xlabel('Time (days)')
     ylabel('T_{R} (cells/\mu L)')
     title('Regulatory T cells (T_{R}) over time')
-    ax.XAxis.FontSize = 10;
-    ax.YAxis.FontSize = 10;
+    ax = gca;
+    formatAxes(ax);
 
     % Bottom right plot
     nexttile
@@ -97,7 +95,14 @@ function modelEQ
     xlabel('Time (days)')
     ylabel('I (ng/\mu L)')
     title('IL-2 (I) over time')
-    ax.XAxis.FontSize = 10;
-    ax.YAxis.FontSize = 10;
+    ax = gca;
+    formatAxes(ax);
   
+    %helper function for formatting axes
+    function formatAxes(ax)
+        ax.Title.FontSize = 15;
+        ax.XAxis.FontSize = 14;
+        ax.YAxis.FontSize = 14;
+    end
+
 end 
