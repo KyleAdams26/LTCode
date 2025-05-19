@@ -1,4 +1,5 @@
 function modelEQ
+    % ###Step 1
     % define the colors of the state variables
     L_color  = [166/255, 107/255,  97/255]; % brown
     A_color  = [250/255, 129/255, 113/255]; % salmon
@@ -11,19 +12,21 @@ function modelEQ
     %load the parameter names and values
     p = parameters();
 
+    % ###Step 2
     % set simulation timespan and load the initial conditions
     t0 = 0; tfinal = 400; % initial and final simulation times in days
     IC = getInitialConditions(); % get the initial values of the model
     IC = struct2cell(IC); IC = [IC{:}];
 
-   
+    % ###Step 3
     % choose integration settings using "options"
     options = odeset('RelTol',1e-12,'AbsTol',1e-12);
     
     % simulate the model 
     [Tf,Xf] = ode45(@(t, y)odefun(t, y, p),...
         [t0 tfinal], IC, options);
-        
+    
+    % ###Step 4
     % store the solutions for each variable for plotting
     LF   = Xf(:,1);
     AF   = Xf(:,2);
@@ -32,6 +35,7 @@ function modelEQ
     TrF  = Xf(:,5);
     IF   = Xf(:,6);
    
+    % ###Step 5
     %% Create plots of the variables in a 2x3 grid %%
     % each plot has the same aesthetic and similar labelings
     

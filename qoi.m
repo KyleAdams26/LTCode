@@ -5,6 +5,7 @@ function QOI = qoi(p, debug)
         debug = false; % flag to plot for debugging purpose
     end
     
+    % ###Step 1
     t0 = 0; tfinal = 30; % simulation time in days
     IC = getInitialConditions(); % get the initial values of the model
     IC = struct2cell(IC); IC = [IC{:}];
@@ -12,9 +13,9 @@ function QOI = qoi(p, debug)
 
     %simulates the model 
     [T,Y] = ode15s(@(t, y)odefun(t, y, p),...
-        [t0 tfinal], IC);
+        [t0 tfinal], IC); 
     %we chose the L(T) as our QOI   
-    QOI = Y(end,1);
+    QOI = Y(end,1); % ###Step 2
     % results
     if debug
     plotQOI(T, Y);

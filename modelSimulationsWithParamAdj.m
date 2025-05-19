@@ -1,5 +1,6 @@
 function modelSimulationsWithParamAdj
     
+    % ###Step 1
     %initializing colors
     L_color = [166/255, 107/255, 97/255];
     grey_color = [150/255, 150/255, 150/255];
@@ -7,6 +8,7 @@ function modelSimulationsWithParamAdj
     %loading parameters
     param = parameters();
 
+    % ###Step 2
     %solve model regularly
     t0 = 0; tfinal = 30; % simulation time in days
     IC = getInitialConditions(); % get the initial values of the model
@@ -20,6 +22,7 @@ function modelSimulationsWithParamAdj
     [T,Y] = ode45(@(t, y)odefun(t, y, param),...
         [t0 tfinal], IC, options);
     L = Y(:, 1);
+    % ###Step 3
     %choose parameters to show their influence on QOI
     [T1, Y1, T2, Y2] = solveWithModifiedParam('aCL', param, tspan); L1 = Y1(:,1); L2 = Y2(:,1);
     [T3, Y3, T4, Y4] = solveWithModifiedParam('dL', param, tspan); L3 = Y3(:,1); L4 = Y4(:,1);
@@ -28,6 +31,7 @@ function modelSimulationsWithParamAdj
     [T9, Y9, T10, Y10] = solveWithModifiedParam('aIC', param, tspan); L9 = Y9(:,1); L10 = Y10(:,1);
     [T11, Y11, T12, Y12] = solveWithModifiedParam('gC', param, tspan); L11 = Y11(:,1); L12 = Y12(:,1);
     
+    % ###Step 4
     %plot simulations
     figure;
     hold on;
@@ -41,6 +45,7 @@ function modelSimulationsWithParamAdj
     addTile('gC', T11, L11, T12, L12, L_color, 30);
     hold off;
 
+    % ###Step 5
     %plot to show all in favor / all against
     good_params = {'bCL'}; %parameters that if increased, will increase QOI
     bad_params = {'aCL', 'dL', 'KC', 'gC', 'aIC'}; %parameters that if decreased, will decrease QOI

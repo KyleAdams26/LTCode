@@ -6,11 +6,12 @@ function dcdt = odefun(~, c, p) %QC'd
     %   p - parameter structure
     % Outputs:
     % dcdt - Derivatives of the state variables
-    % The credit of this code is for Dr. Jaimit Parikh 
-    % This code was originally modified by Dr. Mahya Aghaee.
+    % This code was originally written by Jaimit Parikh,
+    % then later edited by Mahya Aghaee.
     % Kyle Adams modified this code to be suitable for the Liver Transplant
     % Project.
  
+    % ###Step 1
     % # c : levels of 6 biological factors at t. 
     L = c(1); % Liver cells
     A = c(2); % APCs
@@ -22,6 +23,7 @@ function dcdt = odefun(~, c, p) %QC'd
     %     # t : time (int)
     %     # x : 35 parameter values
 
+    % ###Step 2
         %% -- The rate change of the 6 populations (Dynamics of the system) -- %%
         % Paths for the dynamics %
    
@@ -46,7 +48,7 @@ function dcdt = odefun(~, c, p) %QC'd
     zPath = p.dR*Tr;
 
 
-
+    % ###Step 3
     % Dynamics 
     dy(1) = -hPath*ePath; %dLdt
     dy(2)  = p.lL*(p.dL)*L*(1+ePath) - iPath ; %dAdt

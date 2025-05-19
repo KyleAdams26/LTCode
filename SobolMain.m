@@ -7,6 +7,7 @@
 rng(1);
 p = parameters();
 
+% ###Step 1
 %making output folder with a timestamp
 timestamp = datestr(now, 'yyyymmdd_HHMMSS');
 outdir = fullfile('sensitivityRuns', ['run_', timestamp]);
@@ -18,7 +19,7 @@ save(fullfile(outdir, 'params_used.mat'), '-struct', 'p');
 %%changeable here is how you create your bounds. default is
 %%lower bounds are 50% of the nominal value, and upper bounds are 150%
 
-%% change me %%
+% ###Step 2
 lower_percentage = 0.5;
 upper_percentage = 1.5;
 base_samples = 150000;
@@ -61,7 +62,7 @@ end
 %stores QOI distribution for histogram comparison later
 QOI_all_varying = QOI;
 %%
-% 4. Scatter Plot of QOI vs selected patrameters
+% 4. Scatter Plot of QOI vs selected parameters
 % plotScatter(samples, QOI, parsName, ...
 % 'scatterSobol.png');
 %ylabel('QOI')
@@ -83,6 +84,7 @@ ST = cell2mat(S.ST);
 S1_sorted = S1(idx);
 paramNames_sorted = paramNames(idx);
 
+% ###Step 3
 %plotting sensitivity indices
 hold on;
 figure('DefaultAxesFontSize', 16);
@@ -118,23 +120,19 @@ end
 
 
 
-%saving data
+%saving sensitivity indices
 save(fullfile(outdir, ['sensitivity_results_s1' timestamp '.mat']), 'S1');
 save(fullfile(outdir, ['sensitivity_results_sT' timestamp '.mat']), 'ST');
 T_ST = table(paramNames(:), ST(:), 'VariableNames', {'Parameter', 'ST'});
-<<<<<<< HEAD
 writetable(T_ST, fullfile(outdir, ['sensitivity_resultsST_' timestamp '.csv']));
 
 T_S1 = table(paramNames(:), S1(:), 'VariableNames', {'Parameter', 'S1'});
 writetable(T_S1, fullfile(outdir, ['sensitivity_resultsS1_' timestamp '.csv']));
-=======
-writetable(T_ST, fullfile(outdir, ['sensitivity_resultsST_' timestamp '.csv']))
 
-T_S1 = table(paramNames(:), S1(:), 'VariableNames', {'Parameter', 'S1'});
-writetable(T_S1, fullfile(outdir, ['sensitivity_resultsS1_' timestamp '.csv']))
->>>>>>> 0d91f668e05b6e5d2a113377799eccf40dd0bfd8
 %saving entire files
-code_files = {'SobolMain.m', 'parameters.m', 'odefun.m', 'qoi.m'};
+code_files = {'SobolMain.m', 'parameters.m', 'odefun.m', 'qoi.m', 'compareQOIDists.m', 'getInitialConditions.m',...
+    'getSamplesDesiredDist.m', 'getSamplesSobol.m', 'makeSensitivityTables.m', 'modelEQ.m', 'modelSimulationsWithParamAdj.m', ...
+    'sobolAnalysis.m', 'subset.m'};
 for k = 1:length(code_files)
 [~, name, ext] = fileparts(code_files{k});
 dest_filename = [name '_' timestamp ext];

@@ -1,11 +1,12 @@
 % sobol file to run the Sobol sensitivity analysis
 % on the QSP ODE model. 
-% This code originally stems from Dr. Jaimit Parikh's SobolMain.m script.
+% This code originally stems from Jaimit Parikh's SobolMain.m script.
 % Kyle Adams added comments and adjusted this code to compare QOI
 % distributions resulting from fixing some parameters.
 
 rng(1);  %Setting seed 
 
+% ###Step 1
 %setting up bounds and distributions for sobol sampling
 lower_percentage = 0.5;
 upper_percentage = 1.5;
@@ -13,6 +14,7 @@ base_samples = 175000;
 param_dist = {'Uniform'};
 p = parameters();
 
+% ###Step 2
 %defining parameter sets to compare QOI distributions
 param_sets = {
     'All', fieldnames(p)', ...
@@ -77,6 +79,7 @@ for i = 1:num_param_sets
 end
 smallest_num_model_evals = min(cellfun(@length, QOIs)); %used to take subsets of bigger QOI distributions to compare fairly
 
+% ###Step 3
 %plotting histogram comparisons of QOI distributions
 figure;
 hold on;
