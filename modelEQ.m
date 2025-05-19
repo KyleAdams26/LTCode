@@ -1,3 +1,5 @@
+%%adjusted by Kyle Adams, originally Mahya Aghaee
+
 function modelEQ
     % ###Step 1
     % define the colors of the state variables

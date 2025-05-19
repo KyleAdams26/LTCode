@@ -1,6 +1,6 @@
 %This file calculates the S1, S2, and ST values
 %It can also calculate the confidence intervals for these values, but that is commented out. 
-%Author: Dr. Jaimit Parikh
+%Author: Jaimit Parikh
 
 function results = sobolAnalysis(Y, k, N, numResamples, confLevel)
 arguments

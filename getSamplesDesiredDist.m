@@ -1,6 +1,6 @@
 function samples = getSamplesDesiredDist(paramObj, samples, sampleDist)
 %Author: Jaimit Parikh
-%Comments by Dr. Skylar Grey
+%Comments by Skylar Grey
 
 %Separate out parameter distribution types from parameter object
 paramDistTypes = paramObj.dist;

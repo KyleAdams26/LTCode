@@ -1,5 +1,5 @@
 function QOI = qoi(p, debug)
-%Author: Dr. Jaimit Parikh
+%Author: Jaimit Parikh
     arguments
         p; % parameters
         debug = false; % flag to plot for debugging purpose

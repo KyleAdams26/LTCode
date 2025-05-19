@@ -11,10 +11,10 @@ end
 %   samples: the number of returned samples = N(k+2) if only calculating
 %   first order index or 2N(k+1) if also calculating second order index
 % Author: Jaimit Parikh
-% Date Last modified: 07-10-2023 (by Dr. Parikh)
+% Date Last modified: 07-10-2023 (by Jaimit Parikh)
 % see also sobolset sgenerator makedist
 
-% comments by Dr. Skylar Grey and Kyle Adams
+% comments by Skylar Grey and Kyle Adams
 
 N = paramObj.N; % Number of base samples - this will get multiplied by (K+2) for first-order S1
 k = length(paramObj.name);% number of parameters

@@ -1,3 +1,4 @@
+%written by Kyle Adams, adjusted from modelEQ.m
 function modelSimulationsWithParamAdj
     
     % ###Step 1
