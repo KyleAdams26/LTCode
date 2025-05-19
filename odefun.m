@@ -25,28 +25,30 @@ function dcdt = odefun(~, c, p) %QC'd
         %% -- The rate change of the 6 populations (Dynamics of the system) -- %%
         % Paths for the dynamics %
    
+    ePath = p.aCL*Tc/(p.bCL + Tc);
+    gPath = p.aAH*A/(p.bAH + A);
+    hPath = p.dL*L;
     iPath = p.dA*A;
-    vPath = p.sR;
-    zPath = p.dR*Tr;
-    uPath = 1 - p.aIR*I/(p.bIR + I);
+    jPath = p.aRA*Tr/(p.bRA + Tr);
+    lPath = p.aHC*Th/(p.bHC + Th);
     nPath = p.aCI*Tc/(p.bCI +Tc);
     oPath = p.aHI*Th/(p.bHI + Th);
     pPath = p.gC*Tc*(1 - Tc/p.KC);
     qPath = p.aIC*I/(p.bIC + I);
-    sPath = p.gH*Th*(1 - Th/p.KH);
     rPath = p.aIH*I/(p.bIH + I);
-    wPath = p.dI*I;
-    lPath = p.aHC*Th/(p.bHC + Th);
+    sPath = p.gH*Th*(1 - Th/p.KH);
     tPath = p.dC*Tc;
-    gPath = p.aAH*A/(p.bAH + A);
-    jPath = p.aRA*Tr/(p.bRA + Tr);
+    uPath = 1 - p.aIR*I/(p.bIR + I);
+    vPath = p.sR;
+    wPath = p.dI*I;
     xPath = 1 + p.aIRA*I/(p.bIRA + I);
     yPath = p.dH*Th;
-    ePath = p.aCL*Tc/(p.bCL + Tc);
+    zPath = p.dR*Tr;
+
 
 
     % Dynamics 
-    dy(1) = -p.dL*L*ePath; %dLdt
+    dy(1) = -hPath*ePath; %dLdt
     dy(2)  = p.lL*(p.dL)*L*(1+ePath) - iPath ; %dAdt
     dy(3)  = gPath*(1 - jPath*xPath) + sPath*rPath - yPath;%dThdt
     dy(4)  = lPath + pPath*qPath - tPath; %dTcdt

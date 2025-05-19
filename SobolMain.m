@@ -21,7 +21,7 @@ save(fullfile(outdir, 'params_used.mat'), '-struct', 'p');
 %% change me %%
 lower_percentage = 0.5;
 upper_percentage = 1.5;
-base_samples = 100000;
+base_samples = 150000;
 param_dist = {'Uniform'};
 
 %% ---------- %%
@@ -118,14 +118,21 @@ end
 
 
 
-%%saving data
+%saving data
 save(fullfile(outdir, ['sensitivity_results_s1' timestamp '.mat']), 'S1');
 save(fullfile(outdir, ['sensitivity_results_sT' timestamp '.mat']), 'ST');
 T_ST = table(paramNames(:), ST(:), 'VariableNames', {'Parameter', 'ST'});
+<<<<<<< HEAD
+writetable(T_ST, fullfile(outdir, ['sensitivity_resultsST_' timestamp '.csv']));
+
+T_S1 = table(paramNames(:), S1(:), 'VariableNames', {'Parameter', 'S1'});
+writetable(T_S1, fullfile(outdir, ['sensitivity_resultsS1_' timestamp '.csv']));
+=======
 writetable(T_ST, fullfile(outdir, ['sensitivity_resultsST_' timestamp '.csv']))
 
 T_S1 = table(paramNames(:), S1(:), 'VariableNames', {'Parameter', 'S1'});
 writetable(T_S1, fullfile(outdir, ['sensitivity_resultsS1_' timestamp '.csv']))
+>>>>>>> 0d91f668e05b6e5d2a113377799eccf40dd0bfd8
 %saving entire files
 code_files = {'SobolMain.m', 'parameters.m', 'odefun.m', 'qoi.m'};
 for k = 1:length(code_files)
