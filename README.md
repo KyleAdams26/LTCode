@@ -30,7 +30,7 @@ This script will be used anytime you need to load parameters into another script
 5. Adjust getInitialConditions.m
 Here is a function that is similar to parameters.m which calls in your initial conditions. It is important that the order of these initial conditions match the order of your equations in step 2.
 
-Adjust modelEQ.m (if you want to simulate your model)
+6. Adjust modelEQ.m (if you want to simulate your model)
 If you want to simulate your model, running this script will do so. "% ###Step 1" is setting custom colors for plotting purposes.
 "% ###Step 2" is where the timespan for your model simulation is created, you can adjust t0 to change the initial time, and adjust tfinal to change the final time.
 "% ###Step 3" sets options for the ODE solver, we used tolerances of 1e-12. You can change this if you want to adjust the accuracy of your solution (i.e. in case you want a different convergence speed), but this is not necessary.
