@@ -4,7 +4,8 @@
 % Kyle Adams added comments and adjusted this code to compare QOI
 % distributions resulting from fixing some parameters.
 
-rng(1);  %Setting seed 
+random_seed = 1;
+rng(random_seed);  %Setting seed 
 
 % ###Step 1
 %setting up bounds and distributions for sobol sampling
@@ -85,7 +86,7 @@ figure;
 hold on;
 colors = {'red', 'black', 'blue'};
 for i = 1:num_param_sets
-    histogram(subset(QOIs{i}, smallest_num_model_evals), ...
+    histogram(subset(QOIs{i}, smallest_num_model_evals, random_seed), ...
         'EdgeColor', colors{i}, ...
         'DisplayStyle', 'stairs', ...
         'LineWidth', 2);

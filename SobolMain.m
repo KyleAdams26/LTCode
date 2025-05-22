@@ -4,7 +4,8 @@
 % be proper for our purpose. Adjustments and comments were added by Kyle Adams.
 
 %get parameters from parameters.m and setting seed for reproducibility
-rng(1);
+random_seed = 1; %also used in subset.m
+rng(random_seed);
 p = parameters();
 
 % ###Step 1
