@@ -138,3 +138,25 @@ for k = 1:length(code_files)
 dest_filename = [name '_' timestamp ext];
 copyfile(code_files{k}, fullfile(outdir, dest_filename));
 end
+
+% ###Step 4
+%optional: plot only top influential parameters
+%plot_top_params(16, S1_sorted, ST_sorted, paramNames_sorted);
+
+function plot_top_params(num_params_plotted, S1_sorted, ST_sorted, paramNames_sorted)
+trunc_S1_sorted = S1_sorted(1:num_params_plotted, :);
+trunc_ST_sorted = ST_sorted(1:num_params_plotted, :);
+hold on;
+figure('DefaultAxesFontSize', 16);
+b = bar([trunc_S1_sorted, trunc_ST_sorted], 'grouped');
+b(1).FaceColor = [1 0.79 0.63];
+b(2).FaceColor = [0 0.188 0.69];
+set(gca, 'FontName', 'Times New Roman')
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0.04, 1, 0.96]); %maximizes figure on screen
+xticks(1:num_params_plotted);
+xticklabels(paramNames_sorted(1:num_params_plotted))
+xtickangle(45);
+ylabel('Sensitivity Index', 'FontSize', 16, 'FontName', 'serif');
+legend({'S1', 'ST'}, 'FontSize', 16, 'FontName', 'serif');
+hold off;
+end
