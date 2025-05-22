@@ -49,14 +49,12 @@ for j = 1:num_runs
     S1_matrix(:, j) = T.S1(idx);
 end
 
-%sorting by descending values from run with largest base samples (loaded as
+%sorting by descending ST values from run with largest base samples (loaded as
 %column 1 for us)
 [~, sort_idx_ST] = sort(ST_matrix(:, 1), 'descend');
-[~, sort_idx_S1] = sort(S1_matrix(:, 1), 'descend');
 ST_sorted = ST_matrix(sort_idx_ST, :);
-S1_sorted = S1_matrix(sort_idx_S1, :);
+S1_sorted = S1_matrix(sort_idx_ST, :);
 param_names_sorted_ST = param_names(sort_idx_ST);
-param_names_sorted_S1 = param_names(sort_idx_S1);
 
 %making tables with sorted sensitivity indices and matching parameter names
 T_ST = array2table(ST_sorted, ...
@@ -65,8 +63,9 @@ T_ST = array2table(ST_sorted, ...
 
 T_S1 = array2table(S1_sorted, ...
     'VariableNames', column_names_s1, ...
-    'RowNames', param_names_sorted_S1);
+    'RowNames', param_names_sorted_ST);
 
 %saving tables to environment
 writetable(T_ST, 'summary_sensitivity_ST_table.csv', 'WriteRowNames', true);
 writetable(T_S1, 'summary_sensitivity_S1_table.csv', 'WriteRowNames', true);
+
