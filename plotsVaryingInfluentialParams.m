@@ -62,7 +62,7 @@ function plotsVaryingInfluentialParams
     % solution against the solutions where all influential parameters are
     % in favor of the QOI, and where all influential parameters are against
     % the QOI
-        p = parameters();
+        p = setParameters();
         p_favor = p;
         p_against = p;
         for i = 1:length(good_param_set) %this loop replaces each good 
@@ -146,7 +146,7 @@ function [T1, Y1, T2, Y2] = solveWithModifiedParam(paramName, p, tspan)
     %   T2, Y2 - Solution for 0.5 * given parameter
 
     %get initial conditions
-    IC = getInitialConditions(); % get the initial values of the model
+    IC = setInitialConditions(); % get the initial values of the model
     IC = struct2cell(IC); IC = [IC{:}];
     %options
     options = odeset('RelTol',1e-12,'AbsTol',1e-12) ;

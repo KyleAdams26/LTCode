@@ -8,7 +8,7 @@ rng(random_seed);  %Setting seed
 %set up bounds and distributions for Sobol sampling
 lower_percentage = 0.5;
 upper_percentage = 1.5;
-base_samples = 100;
+base_samples = 175000;
 param_dist = {'Uniform'};
 p = setParameters();
 
