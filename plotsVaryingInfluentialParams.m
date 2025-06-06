@@ -5,7 +5,7 @@
 function plotsVaryingInfluentialParams
     
     % ###Step 1
-    %initializing colors
+    %initialize colors
     L_color = [166/255, 107/255, 97/255]; %brown
     grey_color = [150/255, 150/255, 150/255]; %grey
 
